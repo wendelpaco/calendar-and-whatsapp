@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "allowJs": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "typeRoots": [
+      "../../node_modules/@types",
+      "src/@types"
+    ],
+    "paths": {
+      "@App/controller/*": [
+        "./App/controller/*"
+      ],
+      "@App/middlewares/*": [
+        "./App/middlewares/*"
+      ],
+      "@App/model/*": [
+        "./App/model/*"
+      ],
+      "@App/routes/*": [
+        "./App/routes/*"
+      ],
+      "@config/*": [
+        "./config/*"
+      ],
+      "@service/*": [
+        "./service/*"
+      ],
+      "@modules/*": [
+        "./modules/*"
+      ],
+      "@database/*": [
+        "./database/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "types.d.ts"
+  ]
+}

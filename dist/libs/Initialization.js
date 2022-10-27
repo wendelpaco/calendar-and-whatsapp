@@ -11,8 +11,4 @@ exports.default = {
     header: 'accept-language',
     queryParameter: 'lang',
     autoReload: true,
-    api: {
-        __: 't',
-        __n: 'tn',
-    }
 };

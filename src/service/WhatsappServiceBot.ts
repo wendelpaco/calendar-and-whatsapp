@@ -1,6 +1,7 @@
 import { Client, LocalAuth } from 'whatsapp-web.js'
 import qrcode from 'qrcode-terminal'
 import UserModel from '@App/model/User/UserModel';
+import { __ } from 'i18n';
 
 export class WhatsappServiceBot {
   start: string
@@ -26,7 +27,7 @@ export class WhatsappServiceBot {
           const cpf = msg.body.split(" ")[1]
           const user = await UserModel.findOne({ cpf })
           console.log(user)
-          if(!user) return await this.sendMessageFrom(msg.from, "usuario não encontrado")
+          if(!user) return await this.sendMessageFrom(msg.from, __("user_not_found"))
           const messageId = await this.sendMessageFrom(msg.from, user.cpf)
         }
       })
@@ -38,7 +39,7 @@ export class WhatsappServiceBot {
 
   async sendMessageFrom(from: string, message: string) {
     try {
-      const messageId = await this.bot.sendMessage(from, message) 
+      const messageId = await this.bot.sendMessage(from, message)
       return messageId.id
     } catch(error){
       console.log("Error send message!")
@@ -47,7 +48,7 @@ export class WhatsappServiceBot {
 
   async deleteMessageWithId(messageID: any){
     try {
-      
+
     }catch(error){
       console.log("Error in delete message!")
     }

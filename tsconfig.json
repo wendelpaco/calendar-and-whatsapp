@@ -16,6 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "typeRoots": [
       "../../node_modules/@types",
       "src/@types"
@@ -36,6 +37,9 @@
       "@config/*": [
         "./config/*"
       ],
+      "@locales/*": [
+        "./locales/*"
+      ],
       "@service/*": [
         "./service/*"
       ],
@@ -48,7 +52,8 @@
     }
   },
   "include": [
-    "src"
+    "src",
+    "src/**/*.json"
   ],
   "exclude": [
     "node_modules"

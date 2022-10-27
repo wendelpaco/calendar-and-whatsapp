@@ -5,7 +5,7 @@ export class Database {
     this.connect()
   }
   private connect(): void {
-    mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/test', {
+    mongoose.connect(process.env.MONGODB_URL ?? 'mongodb://localhost/test', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,

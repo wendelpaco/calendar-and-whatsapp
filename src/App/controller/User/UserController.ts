@@ -12,16 +12,16 @@ export class UserController {
     // validate user data
     const { error } = signupValidation(req.body)
     if (error) return res.status(400).json({ statusCode: 400, message: error.details[0].message })
-    
+
     // email already exists
     const userEmail = await UserModel.findOne({ email: req.body.email })
-    if (userEmail) return res.status(400).json({ statusCode: 400, message: 'Email already exists' })
+    if (userEmail) return res.status(400).json({ statusCode: 400, message: req.__('email_already') })
 
     // cpf already exists
     const userCpf = await UserModel.findOne({ cpf: req.body.cpf })
-    if (userCpf) return res.status(400).json({ statusCode: 400, message: 'CPF already exists' })
+    if (userCpf) return res.status(400).json({ statusCode: 400, message: req.__('cpf_already') })
 
-    try {  
+    try {
       // create user
       const user: IUser = new UserModel({
         email,
@@ -33,8 +33,8 @@ export class UserController {
       const userSaved = await user.save()
 
       // create token
-      const tokenGenerate: string = jwt.sign({ _id: userSaved._id }, process.env.JWT_SECRET || 'secret', { expiresIn: 60 * 60 * 24 })
-      return res.header('authorization', tokenGenerate).status(201).json({ statusCode: 201, essage: 'user created with sucess', tokenGenerate })
+      const tokenGenerate: string = jwt.sign({ _id: userSaved._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: 60 * 60 * 24 })
+      return res.header('authorization', tokenGenerate).status(201).json({ statusCode: 201, message: req.__('user_create'), tokenGenerate })
     } catch(err){
       return res.status(400).json(err)
     }
@@ -45,16 +45,16 @@ export class UserController {
 
     const { error } = signinValidation(req.body)
     if (error) return res.status(400).json({ statusCode: 400, message: error.details[0].message })
-    
+
     const user = await UserModel.findOne({ email }).select('+password')
-    if (!user) return res.status(400).json({ statusCode: 400, message: 'Email or Password is wrong' })
+    if (!user) return res.status(400).json({ statusCode: 400, message: req.__('email_password_wrong') })
 
     const candidatePassword = await user.comparePasswords(password)
-    if (!candidatePassword) return res.status(400).json({ statusCode: 400, message: 'Email or Password is wrong' })
+    if (!candidatePassword) return res.status(400).json({ statusCode: 400, message: req.__('email_password_wrong') })
 
     // create a token
-    const tokenGenerate: string = jwt.sign({ _id: user._id }, process.env.JWT_SECRET || 'secret', { expiresIn: 60 * 60 * 24 })
-    return res.header('authorization', tokenGenerate).status(200).json({ statusCode: 200, message: 'user signed in with success', token: tokenGenerate })
+    const tokenGenerate: string = jwt.sign({ _id: user._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: 60 * 60 * 24 })
+    return res.header('authorization', tokenGenerate).status(200).json({ statusCode: 200, message: req.__('user_signed'), token: tokenGenerate })
   }
 
   async UpdateUser(req: Request, res: Response): Promise<Response> {

@@ -1,0 +1,8 @@
+{
+    "email_already": "O e-mail já existe",
+    "cpf_already": "O cpf já existe",
+    "email_password_wrong": "E-mail ou senha está errado",
+    "user_create": "usuário criado com sucesso",
+    "user_not_found": "usuário não encontrado",
+    "user_signed": "usuário conectado com sucesso"
+}

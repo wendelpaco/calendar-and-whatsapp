@@ -9,6 +9,7 @@ lerna-debug.log*
 node_modules/
 yarn.lock
 .env
+service.js
 exemplo-github.txt
 
 build

@@ -3,9 +3,13 @@ import 'dotenv/config'
 import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
+import path from 'path'
+import i18n from 'i18n'
 import { router } from '@App/routes/router'
 import { Database } from '@database/index'
 import { WhatsappServiceBot } from '@service/WhatsappServiceBot'
+
+import config from './libs/Initialization'
 
 export class App {
   express: express.Application
@@ -13,11 +17,13 @@ export class App {
 
   constructor() {
     this.express = express();
-    this.express.set('port', process.env.PORT || 3333)
+    i18n.configure(config)
+    this.express.use(i18n.init)
+    this.express.set('port', process.env.PORT ?? 3333)
     this.middlewares()
     this.database()
     this.routes()
-    // this.whatsappService()
+    this.whatsappService()
   }
   private middlewares(): void {
     this.express.use(express.json())

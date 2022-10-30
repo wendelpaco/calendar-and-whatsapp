@@ -6,6 +6,7 @@ export interface IUser extends Document {
   password: string
   name: string
   cpf: string
+  image: Buffer
   encrypPassword(candidatePassword: string): Promise<string>
   comparePasswords(candidatePassword: string): Promise<Boolean>
 }

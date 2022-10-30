@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose, { ConnectOptions } from 'mongoose'
 
 export class Database {
   constructor() {
@@ -6,10 +6,13 @@ export class Database {
   }
   private connect(): void {
     mongoose.connect(process.env.MONGODB_URL ?? 'mongodb://localhost/test', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }).then(db => console.log('⚡️ Database is connected ⚡️')).catch(err => console.log(err))
+      autoIndex: true
+    } as ConnectOptions)
+    .then((db) => {
+      console.log('⚡️ Database is connected ⚡️')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
   }
 }

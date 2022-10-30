@@ -1,8 +1,0 @@
-{
-    "email_already": "Email already exists",
-    "cpf_already": "CPF already exists",
-    "email_password_wrong": "Email or Password is wrong",
-    "user_create": "user created with success",
-    "user_not_found": "user not founder",
-    "user_signed": "user signed in with success"
-}

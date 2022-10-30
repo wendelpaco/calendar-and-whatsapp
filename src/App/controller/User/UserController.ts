@@ -33,7 +33,7 @@ export class UserController {
       const userSaved = await user.save()
 
       // create token
-      const tokenGenerate: string = jwt.sign({ _id: userSaved._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: 60 * 60 * 24 })
+      const tokenGenerate: string = jwt.sign({ _id: userSaved._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: process.env.JWT_EXPIRESIN ?? 1800 })
       return res.header('authorization', tokenGenerate).status(201).json({ statusCode: 201, message: req.__('user_create'), tokenGenerate })
     } catch(err){
       return res.status(400).json(err)
@@ -53,7 +53,7 @@ export class UserController {
     if (!candidatePassword) return res.status(400).json({ statusCode: 400, message: req.__('email_password_wrong') })
 
     // create a token
-    const tokenGenerate: string = jwt.sign({ _id: user._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: 60 * 60 * 24 })
+    const tokenGenerate: string = jwt.sign({ _id: user._id }, process.env.JWT_SECRET ?? 'secret', { expiresIn: process.env.JWT_EXPIRESIN ?? 1800 })
     return res.header('authorization', tokenGenerate).status(200).json({ statusCode: 200, message: req.__('user_signed'), token: tokenGenerate })
   }
 

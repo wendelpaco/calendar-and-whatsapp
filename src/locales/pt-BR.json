@@ -4,5 +4,9 @@
   "email_password_wrong" : "E-mail ou senha está errado",
   "user_create" : "usuário criado com sucesso",
   "user_not_found" : "usuário não encontrado",
-  "user_signed" : "usuário conectado com sucesso"
+  "user_signed" : "usuário conectado com sucesso",
+  "token_provided" : "Nenhum token foi fornecido",
+  "token_error" : "Erro do Token",
+  "token_formatted" : "Token mal formatado",
+  "token_invalid" : "Token Invalido "
 }

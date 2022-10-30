@@ -11,8 +11,9 @@
   },
   "scripts": {
     "dev": "tsnd --transpile-only --respawn --ignore-watch node_modules -r tsconfig-paths/register src/server.ts",
-    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
-    "start": "node ./dist/server.js",
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./build",
+    "build:delete": "rm -rf ./build",
+    "start": "node ./build/server.js",
     "zap": "nodemon ./service.js"
   },
   "dependencies": {

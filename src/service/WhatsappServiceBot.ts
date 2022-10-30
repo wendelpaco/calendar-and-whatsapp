@@ -28,7 +28,7 @@ export class WhatsappServiceBot {
           const user = await UserModel.findOne({ cpf })
           console.log(user)
           if(!user) return await this.sendMessageFrom(msg.from, __("user_not_found"))
-          const messageId = await this.sendMessageFrom(msg.from, user.cpf)
+          const messageId = await this.sendMessageFrom(msg.from, JSON.stringify(user))
         }
       })
 

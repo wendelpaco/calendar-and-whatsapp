@@ -29,7 +29,7 @@ export class App {
     this.express.use(express.json())
     this.express.use(express.urlencoded({ extended: false }))
     this.express.use(cors())
-    this.express.use(morgan("dev"))
+    this.express.use(morgan("tiny"))
   }
   private database(): void {
     new Database()

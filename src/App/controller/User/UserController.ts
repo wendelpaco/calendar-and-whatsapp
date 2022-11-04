@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { signinValidation, signupValidation } from '../../../libs/Joi';
+import { Validation } from '../../../libs/Joi';
 import { IUser } from '../../model/User/UserModel';
 import jwt from 'jsonwebtoken';
 import UserModel from '@App/model/User/UserModel';
@@ -10,7 +10,7 @@ export class UserController {
     const { email, password, name, cpf, image } = req.body
 
     // validate user data
-    const { error } = signupValidation(req.body)
+    const { error } = Validation.Signup(req.body)
     if (error) return res.status(400).json({ statusCode: 400, message: error.details[0].message })
 
     // email already exists
@@ -43,7 +43,7 @@ export class UserController {
   async UserSignin(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
-    const { error } = signinValidation(req.body)
+    const { error } = Validation.Signin(req.body)
     if (error) return res.status(400).json({ statusCode: 400, message: error.details[0].message })
 
     const user = await UserModel.findOne({ email }).select('+password')

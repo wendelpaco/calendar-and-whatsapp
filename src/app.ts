@@ -4,7 +4,7 @@ import express from 'express'
 import morgan from 'morgan'
 import cors from 'cors'
 import i18n from 'i18n'
-import { router } from '@App/routes/router'
+import { Routers } from '@App/routes/router'
 import { Database } from '@database/index'
 import { WhatsappServiceBot } from '@service/WhatsappServiceBot'
 
@@ -13,6 +13,7 @@ import config from './libs/Initialization'
 export class App {
   express: express.Application
   whatsappServiceBot: WhatsappServiceBot
+  route: Routers = new Routers()
 
   constructor() {
     this.express = express();
@@ -21,7 +22,7 @@ export class App {
     this.express.set('port', process.env.PORT ?? 3333)
     this.middlewares()
     this.database()
-    this.routes()
+    this.route.UseRoutes(this.express)
     this.whatsappService()
   }
   private middlewares(): void {
@@ -32,9 +33,6 @@ export class App {
   }
   private database(): void {
     new Database()
-  }
-  private routes(): void {
-    this.express.use('/v1', router)
   }
   private whatsappService(): void {
     this.whatsappServiceBot = new WhatsappServiceBot()

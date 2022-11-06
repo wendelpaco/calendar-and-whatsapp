@@ -4,16 +4,13 @@ import UserModel from '@App/model/User/UserModel';
 import { __ } from 'i18n';
 
 export class WhatsappServiceBot {
-  start: string
   clientConnected: string
   bot: Client
 
   constructor(){
-    this.start = "🤖🤖🤖 Bot Is On! 🤖🤖🤖"
-    this.clientConnected = "🟢 Whatsapp web connected to bot 🟢"
     this.bot = new Client({ authStrategy: new LocalAuth() })
     this.bot.initialize()
-    console.log(this.start)
+    this.clientConnected = "🟢 Whatsapp web connected to bot 🟢"
   }
 
   public async botInitialize(){

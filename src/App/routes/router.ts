@@ -1,11 +1,9 @@
-import { Router } from 'express'
-import { Middleware } from '@App/middlewares/VerifyToken'
-import { UserController } from '@App/controller/User/UserController'
+import { Application } from 'express'
 
-export const router = Router()
-const middleware = new Middleware()
-const createUserSignup = new UserController()
+import { v1User } from './index'
 
-router.get('/users', middleware.verifyToken, createUserSignup.GetUserAll)
-router.post('/signup', createUserSignup.CreateUserSignup)
-router.post('/signin', createUserSignup.UserSignin)
+export class Routers {
+  public UseRoutes(app: Application): void {
+    app.use('/v1', v1User)
+  }
+}

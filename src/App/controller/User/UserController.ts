@@ -6,7 +6,7 @@ import UserModel from '@App/model/User/UserModel';
 
 export class UserController {
 
-  async CreateUserSignup(req: Request, res: Response): Promise<Response> {
+  public async createUserSignup(req: Request, res: Response): Promise<Response> {
     const { email, password, name, cpf, image } = req.body
 
     // validate user data
@@ -14,11 +14,11 @@ export class UserController {
     if (error) return res.status(400).json({ statusCode: 400, message: error.details[0].message })
 
     // email already exists
-    const userEmail = await UserModel.findOne({ email: req.body.email })
+    const userEmail = await UserModel.findOne({ email })
     if (userEmail) return res.status(400).json({ statusCode: 400, message: req.__('email_already') })
 
     // cpf already exists
-    const userCpf = await UserModel.findOne({ cpf: req.body.cpf })
+    const userCpf = await UserModel.findOne({ cpf })
     if (userCpf) return res.status(400).json({ statusCode: 400, message: req.__('cpf_already') })
 
     try {
@@ -40,7 +40,7 @@ export class UserController {
     }
   }
 
-  async UserSignin(req: Request, res: Response): Promise<Response> {
+  public async userSignin(req: Request, res: Response): Promise<Response> {
     const { email, password } = req.body
 
     const { error } = Validation.Signin(req.body)
@@ -57,15 +57,15 @@ export class UserController {
     return res.header('authorization', tokenGenerate).status(200).json({ statusCode: 200, message: req.__('user_signed'), token: tokenGenerate })
   }
 
-  async UpdateUser(req: Request, res: Response): Promise<Response> {
+  public async updateUser(req: Request, res: Response): Promise<Response> {
     return res.status(201).json()
   }
 
-  async DeleteUser(req: Request, res: Response): Promise<Response> {
+  public async deleteUser(req: Request, res: Response): Promise<Response> {
     return res.status(201).json()
   }
 
-  async GetUserAll(req: Request, res: Response): Promise<Response> {
+  public async getUserAll(req: Request, res: Response): Promise<Response> {
     try {
       const users = await UserModel.find()
       return res.status(200).json({ statusCode: 200, users })
@@ -74,9 +74,12 @@ export class UserController {
     }
   }
 
-  async GetUserById(req: Request, res: Response): Promise<Response> {
+  public async getUserById(req: Request, res: Response): Promise<Response> {
     try {
-      return res.status(200).json()
+      const { id } = req.params
+      const user = await UserModel.findById({_id: id})
+      if (!user) return res.status(400).json({ statusCode: 400, message: req.__('user_not_found') })
+      return res.status(200).json(user)
     } catch(err){
       return res.status(400).json()
     }

@@ -7,7 +7,7 @@ interface Payload {
 }
 
 export class Middleware {
-  verifyToken(req: Request, res: Response, next: NextFunction): void {
+  public authenticate(req: Request, res: Response, next: NextFunction): void {
     try {
       const token =  req.headers.authorization ?? ''
       if (!token) res.status(401).send({ message: req.__('token_provided') })
